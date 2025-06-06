@@ -22,8 +22,7 @@
 #include <Arduino.h>                    //Standard Arduino header.
 
 // Vulintus digital filters library.
-// If this being loaded through catch-all "Vulintus_OmniTrak" library, load the
-// digital filter library from the submodule.
+// When included by the catch-all "Vulintus_OmniTrak" library, load this library from the submodule.
 #ifdef _VULINTUS_OMNITRAK_H_
     #include "../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h"
     #if defined(VULINTUS_PREPROCESSOR_MESSAGES)                     
