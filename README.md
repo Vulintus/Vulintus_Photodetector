@@ -1,2 +1,2 @@
-# Vulintus_Infrared_Detector
-Arduino-compatible libraries for implementing infrared beam-break and reflectance sensors in Vulintus devices.
+# Vulintus_Photodetector
+Arduino-compatible libraries for implementing light-based (typically infrared) beam-break and reflectance sensors in Vulintus devices.
