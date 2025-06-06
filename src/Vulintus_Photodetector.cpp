@@ -8,7 +8,7 @@
 */
 
 
-#include <./Vulintus_Photodetector.h>
+#include "./Vulintus_Photodetector.h"
 
 
 // CLASS FUNCTIONS ***********************************************************// 
