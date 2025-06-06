@@ -10,7 +10,6 @@
 
 */
 
-#define VULINTUS_PREPROCESSOR_MESSAGES
 
 // Included libraries. // 
 #include <Vulintus_Photodetector.h>     // Vulintus photodetector library.
