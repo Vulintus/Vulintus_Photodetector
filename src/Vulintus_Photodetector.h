@@ -23,16 +23,16 @@
 
 // Vulintus digital filters library.
 // When included by the catch-all "Vulintus_OmniTrak" library, load this library from the submodule.
-#ifdef _VULINTUS_OMNITRAK_H_
-    #include "../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h"
+#if __has_include("../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h")
     #if defined(VULINTUS_PREPROCESSOR_MESSAGES)                     
         #pragma message("Vulintus_Photodetector.h -> using 'Vulintus_Digital_Filter' submodule.")
     #endif
-#else
-    #include <Vulintus_Digital_Filter.h>
+    #include "../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h"
+#else    
     #if defined(VULINTUS_PREPROCESSOR_MESSAGES)    
         #pragma message("Vulintus_Photodetector.h -> using 'Vulintus_Digital_Filter' from sketchbook.")
     #endif
+    #include <Vulintus_Digital_Filter.h>
 #endif
 
 
