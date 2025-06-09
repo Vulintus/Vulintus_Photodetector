@@ -23,7 +23,7 @@
 
 // Vulintus digital filters library.
 // When included by the catch-all "Vulintus_OmniTrak" library, load this library from the submodule.
-#if defined(_VULINTUS_OMNITRAK_H_) && __has_include("../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h")
+#if __has_include("../../Vulintus_Digital_Filter/src/Vulintus_Digital_Filter.h")
     #if defined(VULINTUS_PREPROCESSOR_MESSAGES)                     
         #pragma message("Vulintus_Photodetector.h -> using 'Vulintus_Digital_Filter' submodule.")
     #endif
@@ -51,8 +51,9 @@
         bool is_blocked;                            // Current blocked/unblocked status.
         bool polarity = 1;                          // Detection polarity (default 1 means a blocked photobeam input goes high).
         uint8_t index = 0;                          // Photobeam index, for multi-photobeam modules.
-        uint16_t reading;                           // Current ADC reading.
-        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.    
+        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.
+        uint16_t reading;                           // Latest (possibly filtered) ADC reading.
+        uint16_t reading_raw;                       // Latest raw ADC reading. 
         
         bool auto_thresh = true;                    // Auto-thresholding flag (default on).
         uint16_t min_range = 100;                   // Minimum range between the historical maximum and minimum.
