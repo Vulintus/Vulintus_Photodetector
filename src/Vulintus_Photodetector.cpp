@@ -11,34 +11,31 @@
 #include "./Vulintus_Photodetector.h"
 
 
-// CLASS FUNCTIONS ***********************************************************// 
+// STATIC VARIABLE INITIALIZATIONS ***********************************************************************************//
+uint8_t Vulintus_Photodetector::bitmask = 0;    // Initialize the photobeam status bitmask.
+
+
+// CLASS FUNCTIONS ***************************************************************************************************//
 
 // Class constructor.
-Vulintus_Photodetector::Vulintus_Photodetector(uint8_t pin_detector, uint8_t beam_index, uint8_t *beam_mask)
-        : _pin_detector(pin_detector), index(beam_index), _beam_mask(beam_mask)
+Vulintus_Photodetector::Vulintus_Photodetector(uint8_t pin_detector, uint8_t beam_index, bool blocked_val)
+        : _pin_detector(pin_detector), index(beam_index), polarity(blocked_val)
 {
-    _lowpass_filter = new Vulintus_LowPass_Filter();  // Create a new low-pass filter object with default parameters.
+    _lowpass_filter = new Vulintus_LowPass_Filter();  // Create a new low-pass filter instance with default parameters.
 }
 
 
 // Class destructor.
 Vulintus_Photodetector::~Vulintus_Photodetector(void)
 {
-    delete _lowpass_filter;                          // Delete the low-pass filter object.
+    delete _lowpass_filter;                          // Delete the low-pass filter instance.
 }
 
 
 // Initialization.
 void Vulintus_Photodetector::begin(void)
 {
-    // Create the photobeam status bitmask pointer if it's unassigned.
-    if (_beam_mask == NULL) {
-        _beam_mask = (uint8_t *) malloc (1 * sizeof(uint8_t));
-        *_beam_mask = 0;
-    }
-
     pinMode(_pin_detector, INPUT);                          // ADC input.
-
     uint32_t clock_time = millis();                         // Grab the current milliseconds clock time.
     _minmax_timer[0] = clock_time + _BOOTUP_RESET_DELAY;    // Set the minimum reset time to 1 second to let the ADC charge up.
     _minmax_timer[1] = clock_time + _BOOTUP_RESET_DELAY;    // Set the maximum reset time to 1 second to let the ADC charge up.
@@ -95,17 +92,11 @@ bool Vulintus_Photodetector::read(void)
     }
     is_blocked = cur_state;                         // Update the photobeam state.
 
-    *_beam_mask &= ~(1 << index);                   // Clear the bit for this photobeam.
-    *_beam_mask |= (is_blocked << index);           // Set the bit for this photobeam.
+    bitmask &= ~(1 << index);                       // Clear the bit for this photobeam.
+    bitmask |= (is_blocked << index);               // Set the bit for this photobeam.
 
     return change_flag;                             // Return the change flag.
-}      
-
-
-// Return the current status bitmask.
-uint8_t Vulintus_Photodetector::bitmask(void) {
-    return *_beam_mask;     // Return the bitmask value.
-}                        
+}                         
 
 
 // Set the emitter control pin.
@@ -192,6 +183,7 @@ float Vulintus_Photodetector::lowpass_cutoff(float new_freq)
     _lowpass_cutoff = _lowpass_filter->cutoff_frequency(new_freq);  // Set the new cutoff frequency.
     return _lowpass_cutoff;                                         // Return the current low-pass filter cutoff frequency.
 }  
+
 
 // Reset the photobeam history.
 uint8_t Vulintus_Photodetector::reset(void)

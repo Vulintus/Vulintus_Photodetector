@@ -1,6 +1,8 @@
-/*  Vulintus_Three_Photobeam_Test.ino
+/*  
 
-    copyright 2023, Vulintus, Inc.
+    Vulintus_Three_Photobeam_Test.ino
+
+    copyright (c) 2023, Vulintus, Inc. All rights reserved.
 
     Example demonstrating functions in the Vulintus_Photodetector class.
 
@@ -27,12 +29,11 @@
 
 // Photobeams. // 
 const uint8_t NUM_BEAMS = 3;            // Number of photobeams.
-uint8_t beam_mask;                      // Photobeam status bitmask.
 Vulintus_Photodetector beam[] = {
-  Vulintus_Photodetector(BEAM_L, 0, &beam_mask),
-  Vulintus_Photodetector(BEAM_C, 1, &beam_mask),
-  Vulintus_Photodetector(BEAM_R, 2, &beam_mask),
-};                                      // Array of photobeam class objects.
+  Vulintus_Photodetector(BEAM_L, 0),
+  Vulintus_Photodetector(BEAM_C, 1),
+  Vulintus_Photodetector(BEAM_R, 2),
+};                                      // Array of photobeam class instances.
 const float CUTOFF_FREQ = 20;           // Low-pass filter cut-off frequency, in Hz (set to 0 to disable filtering).
 
 
@@ -75,7 +76,7 @@ void Print_Photobeam_Status(void)
 {
   Serial.print(millis());                     // Print a millisecond timestamp.
   Serial.print(" - ");                        // Print a spacer.
-  Serial.print(beam[0].bitmask());            // Print the current bitmask value (shared across beam objects).
+  Serial.print(beam[0].bitmask);              // Print the current bitmask value (shared across beam instances).
   Serial.print(" - [ ");                      // Print a spacer.
   for (uint8_t i = 0; i < NUM_BEAMS; i++ ) {  // Step through the photobeams.
     Serial.print("(");                        // Print a parenthesis.

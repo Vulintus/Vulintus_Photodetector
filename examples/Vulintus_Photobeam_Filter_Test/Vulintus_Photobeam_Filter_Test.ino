@@ -22,9 +22,7 @@
 #define BEAM_PWM    10
 
 // Photobeam. // 
-const uint8_t NUM_BEAMS = 3;            // Number of photobeams.
-uint8_t beam_mask;                      // Photobeam status bitmask.
-Vulintus_Photodetector beam(BEAM_IN);   // Photodetector class object for a single photobeam.
+Vulintus_Photodetector beam(BEAM_IN);   // Photodetector class instance for a single photobeam.
 const float CUTOFF_FREQ = 20;           // Low-pass filter cut-off frequency, in Hz (set to 0 to disable filtering).
 
 // Sampling timing. //
@@ -48,7 +46,7 @@ void setup() {
     #endif
 
     // Initialize the sampling timing.
-    next_sample = millis();                 // Set the first sample time.
+    next_sample = millis();                // Set the first sample time.
 }
 
 

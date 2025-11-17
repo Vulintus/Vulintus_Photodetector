@@ -1,7 +1,7 @@
 /*  
     Vulintus_Photodetector.h
 
-    copyright 2024, Vulintus, Inc.
+    copyright (c) 2024, Vulintus, Inc. All rights reserved.
 
     Control library for photodetectors (i.e. photobeams) with analog signals that
     can be variably thresholded to increase/decrease detection sensitivity.
@@ -42,18 +42,18 @@
     public:
 
         // Constructor. //        
-        Vulintus_Photodetector(uint8_t pin_detector, uint8_t beam_index = 0, uint8_t *beam_mask = NULL);
+        Vulintus_Photodetector(uint8_t pin_detector, uint8_t beam_index = 0, bool blocked_val = HIGH);
 
         // Destructor. //
         ~Vulintus_Photodetector(void);
 
         // Public Variables. //
         bool is_blocked;                            // Current blocked/unblocked status.
-        bool polarity = 1;                          // Detection polarity (default 1 means a blocked photobeam input goes high).
+        static uint8_t bitmask;                     // Photobeam status bitmask (shared between all photobeam instances).
         uint8_t index = 0;                          // Photobeam index, for multi-photobeam modules.
+        bool polarity = HIGH;                       // Detection polarity (default HIGH means a blocked photobeam input goes high).        
         uint16_t reading;                           // Current ADC reading.
-        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.    
-        
+        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.            
         bool auto_thresh = true;                    // Auto-thresholding flag (default on).
         uint16_t min_range = 100;                   // Minimum range between the historical maximum and minimum.
         uint16_t history[2] = {0xFFFF, 0};          // Historical minimum and maximum ADC values.
@@ -61,10 +61,8 @@
 
         // Public Functions. //
 		void begin(void); 					        // Initialization.
-        void set_polarity(bool blocked_val);        // Set the input polarity.
 
-        bool read(void);                            // Update the current blocked/unblocked state, return a change flag.
-        uint8_t bitmask(void);                      // Return the current status bitmask.        
+        bool read(void);                            // Update the current blocked/unblocked state, return a change flag
 
         void set_emitter_pin(uint8_t pin_emitter);  // Set the emitter control pin.
         void set_emitter_pwm(uint8_t pwm_val);      // Set the emitter PWM value.
@@ -91,7 +89,6 @@
         uint16_t _cur_thresh;                       // Current threshold.        
         uint32_t _minmax_timer[2];                  // Timer for resetting the minimum and maximum history.
         const uint16_t _BOOTUP_RESET_DELAY = 1000;  // Delay before history reset after boot-up, in milliseconds.
-        uint8_t *_beam_mask;                        // Photobeam status bitmask.
 
         Vulintus_LowPass_Filter *_lowpass_filter;	// Digital low-pass filter.
         float _lowpass_cutoff = 0;                  // Low-pass filter cutoff frequency, in Hz (set to 0 to disable the filter).
