@@ -51,9 +51,11 @@
         bool is_blocked;                            // Current blocked/unblocked status.
         static uint8_t bitmask;                     // Photobeam status bitmask (shared between all photobeam instances).
         uint8_t index = 0;                          // Photobeam index, for multi-photobeam modules.
-        bool polarity = HIGH;                       // Detection polarity (default HIGH means a blocked photobeam input goes high).        
+        bool polarity = HIGH;                       // Detection polarity (default HIGH means a blocked photobeam input goes high).      
+
         uint16_t reading;                           // Current ADC reading.
-        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.            
+        uint32_t read_time;			                // Microsecond timestamp of last sensor readings.    
+                
         bool auto_thresh = true;                    // Auto-thresholding flag (default on).
         uint16_t min_range = 100;                   // Minimum range between the historical maximum and minimum.
         uint16_t history[2] = {0xFFFF, 0};          // Historical minimum and maximum ADC values.
