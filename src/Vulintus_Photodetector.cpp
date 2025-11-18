@@ -57,7 +57,7 @@ bool Vulintus_Photodetector::read(void)
         reading = (uint16_t) temp_float;                                    // Convert the filtered reading to an integer.
     }
     else {                                                                  // If the low-pass filter is disabled...
-        reading = reading_raw;                                               // Use the raw ADC reading.
+        reading = reading_raw;                                              // Use the raw ADC reading.
     }
 
     uint32_t clock_time = millis();         // Grab the millisecond clock time.
