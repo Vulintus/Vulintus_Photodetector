@@ -53,7 +53,8 @@
         uint8_t index = 0;                          // Photobeam index, for multi-photobeam modules.
         bool polarity = HIGH;                       // Detection polarity (default HIGH means a blocked photobeam input goes high).      
 
-        uint16_t reading;                           // Current ADC reading.
+        uint16_t reading;                           // Latest (possibly filtered) ADC reading.
+        uint16_t reading_raw;                       // Latest raw ADC reading.   
         uint32_t read_time;			                // Microsecond timestamp of last sensor readings.    
                 
         bool auto_thresh = true;                    // Auto-thresholding flag (default on).
