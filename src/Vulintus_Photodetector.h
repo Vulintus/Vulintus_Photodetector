@@ -1,7 +1,7 @@
 /*  
     Vulintus_Photodetector.h
 
-    copyright (c) 2024, Vulintus, Inc. All rights reserved.
+    copyright (c) 2024, Vulintus, Inc.
 
     Control library for photodetectors (i.e. photobeams) with analog signals that
     can be variably thresholded to increase/decrease detection sensitivity.
