@@ -53,7 +53,7 @@ bool Vulintus_Photodetector::read(void)
 
     if (_lowpass_cutoff > 0) {                                              // If the low-pass filter is enabled...                   
         float temp_float = _lowpass_filter->input(reading_raw, read_time);  // Run the reading through the filter.
-        temp_float = max(0.0, temp_float);                                  // Ensure the filtered reading is non-negative.
+        temp_float = max((float) 0.0, temp_float);                          // Ensure the filtered reading is non-negative.
         reading = (uint16_t) temp_float;                                    // Convert the filtered reading to an integer.
     }
     else {                                                                  // If the low-pass filter is disabled...
