@@ -195,4 +195,5 @@ uint8_t Vulintus_Photodetector::reset(void)
     history[1] = 0;                     // Reset the historical maximum.
     _cur_thresh = 0;                    // Reset the threshold.
     auto_thresh = true;                 // Enable auto-thresholding.
+    return 0;                           // Return a success code.
 }             
